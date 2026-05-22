@@ -9,7 +9,8 @@ const LAN_PARTY_DISCORD = 'https://discord.gg/a7e9Uva5vH';
 const VORSTAND_EMAIL = 'fachschaft-inf-vorstand@nordakademie.de';
 
 export const POST: APIRoute = async ({ request, url }) => {
-  const testMode = url.searchParams.get('mode') === 'test';
+  const testMode = url.searchParams.get("mode") === "test";
+  const dryRun = testMode && url.searchParams.get("dryRun") === "true";
 
   let fullName: string;
   let zenturie: string;
@@ -128,7 +129,7 @@ export const POST: APIRoute = async ({ request, url }) => {
   const interestList   = interests.map(i => interestLabels[i] ?? i).join(', ') || '-';
   const heardFromLabel = (heardFromLabels[heardFrom] ?? heardFrom) || '-';
 
-  await Promise.all([
+  if (!dryRun) await Promise.all([
     sendMail({
       to: email,
       subject: 'Willkommen bei der Fachschaft Informatik! 🎉',
