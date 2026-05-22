@@ -36,7 +36,7 @@ describe('Smoke — Availability & Infrastructure', () => {
   });
 
   it('_test-setup endpoint is hidden without correct backdoor', async () => {
-    const res = await fetch(`${BASE}/api/_test-setup`, {
+    const res = await fetch(`${BASE}/api/test-setup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ backdoor: 'wrong', email: 'x@y.de', ghUser: 'x' }),
@@ -45,7 +45,7 @@ describe('Smoke — Availability & Infrastructure', () => {
   });
 
   it('_test-smtp endpoint is hidden without correct backdoor', async () => {
-    const res = await fetch(`${BASE}/api/_test-smtp?backdoor=wrong`);
+    const res = await fetch(`${BASE}/api/test-smtp?backdoor=wrong`);
     expect([403, 404]).toContain(res.status);
   });
 

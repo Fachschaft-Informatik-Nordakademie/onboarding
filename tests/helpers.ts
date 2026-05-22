@@ -13,7 +13,7 @@ export const BASE = process.env.TEST_BASE_URL ?? 'https://onboard.nak-inf.de';
 export const BACKDOOR = process.env.TEST_BACKDOOR ?? '';
 
 export async function testSetup(email: string, ghUser: string): Promise<string> {
-  const res = await fetch(`${BASE}/api/_test-setup`, {
+  const res = await fetch(`${BASE}/api/test-setup`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ backdoor: BACKDOOR, email, ghUser }),
