@@ -6,7 +6,7 @@ export interface MailOptions {
   html: string;
 }
 
-const FROM = 'Fachschaft Informatik <noreply@nak-inf.org>';
+const FROM = 'Fachschaft Informatik <noreply@nak-inf.de>';
 
 export async function sendMail(opts: MailOptions): Promise<void> {
   const host = process.env.SMTP_HOST;

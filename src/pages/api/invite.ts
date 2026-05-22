@@ -185,7 +185,7 @@ function emailShell(content: string) {
     <tr><td align="center">
       <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%">
         <tr><td style="background:#111c32;border-radius:16px 16px 0 0;padding:32px;text-align:center">
-          <img src="https://onboard.nak-inf.org/logos/FSINF_dark_long.svg"
+          <img src="https://onboard.nak-inf.de/logos/FSINF_dark_long.svg"
                alt="Fachschaft Informatik" width="220"
                style="display:block;margin:0 auto;max-width:220px" />
         </td></tr>
@@ -196,7 +196,7 @@ function emailShell(content: string) {
         <tr><td style="padding:24px;text-align:center">
           <p style="margin:0;font-size:12px;color:#888">
             Fachschaft Informatik · Nordakademie<br>
-            <a href="https://nak-inf.org" style="color:#003a79;text-decoration:none">nak-inf.org</a>
+            <a href="https://nak-inf.de" style="color:#003a79;text-decoration:none">nak-inf.de</a>
           </p>
         </td></tr>
       </table>
