@@ -671,8 +671,9 @@ async function runHealthChecks(): Promise<void> {
       label: 'GitHub OAuth Redirect',
       run: async () => {
         const res = await fetch('/api/github-auth', { redirect: 'manual' });
-        const ok  = res.status === 302 || res.status === 301;
-        return { ok, detail: `HTTP ${res.status}${ok ? ' ✓' : ' — kein Redirect erwartet'}` };
+        // Browser liefert type='opaqueredirect' + status=0 bei redirect:'manual'
+        const ok  = res.status === 302 || res.status === 301 || res.type === 'opaqueredirect';
+        return { ok, detail: ok ? '✓ Redirect erkannt' : `HTTP ${res.status} (type: ${res.type})` };
       },
     },
     {
