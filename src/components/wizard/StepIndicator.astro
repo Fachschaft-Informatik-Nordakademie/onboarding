@@ -1,0 +1,24 @@
+---
+interface Props {
+  totalSteps: number;
+  stepTitles: string[];
+}
+
+const { totalSteps, stepTitles } = Astro.props;
+---
+<div class="flex items-center justify-center gap-2 px-4" aria-label="Wizard-Fortschritt" role="navigation">
+  {Array.from({ length: totalSteps }, (_, i) => (
+    <button
+      class="step-dot group flex flex-col items-center gap-1"
+      data-goto={i}
+      aria-label={`Schritt ${i + 1}: ${stepTitles[i]}`}
+      type="button"
+    >
+      <div class={`
+        w-3 h-3 rounded-full transition-all duration-300
+        ${i === 0 ? 'bg-fsinf-navy dark:bg-fsinf-cyan scale-125' : 'bg-fsinf-navy/30 dark:bg-fsinf-cyan/30'}
+        group-hover:bg-fsinf-navy/70 dark:group-hover:bg-fsinf-cyan/70
+      `}></div>
+    </button>
+  ))}
+</div>

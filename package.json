@@ -1,0 +1,21 @@
+{
+  "name": "onboarding-app",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.5.4",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.17.1",
+    "nodemailer": "^8.0.5",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^8.0.0"
+  }
+}

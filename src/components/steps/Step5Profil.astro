@@ -1,0 +1,206 @@
+---
+---
+<section data-step="5" class="step-panel hidden min-h-[calc(100vh-8rem)] px-4 py-12 max-w-2xl mx-auto">
+  <h2 class="text-3xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-2">
+    Dein <span class="text-fsinf-navy dark:text-fsinf-cyan">Profil</span>
+  </h2>
+  <p class="text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-8">GitHub-Zugang beantragen &amp; ein paar Fragen beantworten</p>
+
+  <div class="space-y-5">
+
+    <!-- Name + Zenturie -->
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5 space-y-4">
+      <div>
+        <label for="full-name" class="block font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">
+          Name <span class="text-red-500">*</span>
+        </label>
+        <div class="relative">
+          <input
+            id="full-name"
+            type="text"
+            placeholder="Vorname Nachname"
+            class="w-full px-4 py-2.5 pr-10 rounded-lg border-2 border-fsinf-navy/30 dark:border-fsinf-cyan/30 bg-white dark:bg-fsinf-dark text-fsinf-dark dark:text-fsinf-cream placeholder-fsinf-dark/40 dark:placeholder-fsinf-cream/40 focus:outline-none focus:border-fsinf-navy dark:focus:border-fsinf-cyan transition-colors"
+          />
+          <!-- Validation indicator (spinner / check / cross) -->
+          <span id="name-validation-icon" class="hidden absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></span>
+        </div>
+        <p id="name-validation-msg" class="hidden text-sm mt-1.5"></p>
+      </div>
+      <div>
+        <label for="zenturie" class="block font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">
+          Zenturie <span class="text-red-500">*</span>
+        </label>
+        <input
+          id="zenturie"
+          type="text"
+          placeholder="z.B. I23, WINF24 …"
+          class="w-full px-4 py-2.5 rounded-lg border-2 border-fsinf-navy/30 dark:border-fsinf-cyan/30 bg-white dark:bg-fsinf-dark text-fsinf-dark dark:text-fsinf-cream placeholder-fsinf-dark/40 dark:placeholder-fsinf-cream/40 focus:outline-none focus:border-fsinf-navy dark:focus:border-fsinf-cyan transition-colors"
+        />
+      </div>
+    </div>
+
+    <!-- Email (pre-filled from verified email) -->
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5">
+      <label for="nak-email" class="block font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">
+        NAK-E-Mail-Adresse
+        <span class="ml-2 inline-flex items-center gap-1 text-xs font-normal text-green-600 dark:text-green-400">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          bestätigt
+        </span>
+      </label>
+      <input
+        id="nak-email"
+        type="email"
+        readonly
+        class="w-full px-4 py-2.5 rounded-lg border-2 border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20 text-fsinf-dark dark:text-fsinf-cream cursor-default"
+      />
+    </div>
+
+    <!-- GitHub OAuth connect -->
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5">
+
+      <!-- Not yet connected -->
+      <div id="github-oauth-connect">
+        <p class="font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">
+          GitHub-Account verbinden <span class="text-red-500">*</span>
+        </p>
+        <p class="text-sm text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-4">
+          Melde dich kurz mit GitHub an, damit wir sicherstellen können, dass der Account wirklich dir gehört.
+          Noch keinen Account?
+          <a href="https://github.com/join" target="_blank" rel="noopener noreferrer" class="text-fsinf-navy dark:text-fsinf-cyan hover:underline">github.com/join</a>
+        </p>
+        <a
+          href="/api/github-auth"
+          class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#24292f] dark:bg-white text-white dark:text-[#24292f] font-semibold rounded-xl hover:opacity-90 transition-opacity"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          Mit GitHub anmelden
+        </a>
+      </div>
+
+      <!-- Connected state -->
+      <div id="github-oauth-connected" class="hidden">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-semibold text-fsinf-dark dark:text-fsinf-cream">
+              Verbunden als <span id="github-oauth-username" class="text-fsinf-navy dark:text-fsinf-cyan"></span>
+            </p>
+            <a href="/api/github-auth" class="text-sm text-fsinf-dark/50 dark:text-fsinf-cream/50 hover:text-fsinf-navy dark:hover:text-fsinf-cyan transition-colors">
+              Anderen Account verwenden
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OAuth error -->
+      <div id="github-oauth-error-box" class="hidden mt-3 flex items-start gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/50 rounded-lg">
+        <svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-sm text-red-700 dark:text-red-300">GitHub-Anmeldung fehlgeschlagen. Bitte versuche es erneut.</p>
+      </div>
+
+    </div>
+
+    <!-- Wie hast du von uns erfahren? -->
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5">
+      <p class="font-semibold text-fsinf-dark dark:text-fsinf-cream mb-3">Wie hast du von uns erfahren?</p>
+      <div class="grid sm:grid-cols-2 gap-2" id="heard-from-group">
+        {[
+          { value: 'event', label: '🎉 Event' },
+          { value: 'peer', label: '🗣️ Andere Studis' },
+          { value: 'dozenten', label: '🎓 Dozenten' },
+          { value: 'social-media', label: '📱 Social Media' },
+          { value: 'info-event', label: 'ℹ️ Info-Veranstaltung' },
+          { value: 'webauftritt', label: '🌐 Webauftritt' },
+          { value: 'memes', label: '😂 Memes' },
+        ].map(({ value, label }) => (
+          <label class="flex items-center gap-3 p-3 rounded-lg border border-fsinf-navy/15 dark:border-fsinf-cyan/15 cursor-pointer hover:bg-fsinf-navy/5 dark:hover:bg-fsinf-cyan/5 transition-colors has-[:checked]:border-fsinf-navy dark:has-[:checked]:border-fsinf-cyan has-[:checked]:bg-fsinf-navy/5 dark:has-[:checked]:bg-fsinf-cyan/5">
+            <input type="radio" name="heard-from" value={value} class="accent-fsinf-navy dark:accent-fsinf-cyan" />
+            <span class="text-sm text-fsinf-dark dark:text-fsinf-cream">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Was möchtest du machen? -->
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5">
+      <p class="font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">Was möchtest du bei uns machen?</p>
+      <p class="text-sm text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-3">Mehrfachauswahl möglich</p>
+      <div class="grid sm:grid-cols-2 gap-2" id="interests-group">
+        {[
+          { value: 'lan-party', label: '🎮 LAN-Party' },
+          { value: 'marketing', label: '📣 Marketing' },
+          { value: 'brettspiele', label: '♟️ Brettspiele' },
+          { value: 'minecraft', label: '⛏️ Minecraft Server' },
+          { value: 'sponsoring', label: '🤝 Sponsoring Relations' },
+          { value: 'discord', label: '💬 Discord' },
+          { value: 'reddit', label: '🤖 Reddit' },
+          { value: 'merch', label: '👕 Merch' },
+        ].map(({ value, label }) => (
+          <label class="flex items-center gap-3 p-3 rounded-lg border border-fsinf-navy/15 dark:border-fsinf-cyan/15 cursor-pointer hover:bg-fsinf-navy/5 dark:hover:bg-fsinf-cyan/5 transition-colors has-[:checked]:border-fsinf-navy dark:has-[:checked]:border-fsinf-cyan has-[:checked]:bg-fsinf-navy/5 dark:has-[:checked]:bg-fsinf-cyan/5">
+            <input type="checkbox" name="interests" value={value} class="accent-fsinf-navy dark:accent-fsinf-cyan" />
+            <span class="text-sm text-fsinf-dark dark:text-fsinf-cream">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button
+      id="github-invite-btn"
+      type="button"
+      class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-fsinf-navy dark:bg-fsinf-cyan text-white dark:text-fsinf-dark font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <svg id="github-btn-icon" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      <span id="github-btn-text">Absenden &amp; GitHub-Zugang beantragen</span>
+    </button>
+
+    <!-- Success -->
+    <div id="github-success" class="hidden flex items-start gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/50 rounded-xl">
+      <svg class="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div class="flex-1">
+        <p class="font-medium text-green-800 dark:text-green-300">Alles erledigt!</p>
+        <p id="github-success-text" class="text-sm text-green-700 dark:text-green-400 mt-0.5"></p>
+        <!-- LAN-Party special invite -->
+        <div id="lan-party-invite" class="hidden mt-3 p-3 bg-[#5865f2]/10 border border-[#5865f2]/30 rounded-lg">
+          <p class="text-sm font-medium text-fsinf-dark dark:text-fsinf-cream mb-2">🎮 LAN-Party-Team: Tritt dem speziellen Discord-Channel bei!</p>
+          <a
+            id="lan-party-discord-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#5865f2] text-white font-medium text-sm rounded-lg hover:opacity-90 transition-opacity"
+          >
+            LAN-Orga Discord beitreten
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="github-error" class="hidden flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/50 rounded-xl">
+      <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="font-medium text-red-800 dark:text-red-300">Fehler</p>
+        <p id="github-error-text" class="text-sm text-red-700 dark:text-red-400 mt-0.5"></p>
+      </div>
+    </div>
+
+  </div>
+</section>

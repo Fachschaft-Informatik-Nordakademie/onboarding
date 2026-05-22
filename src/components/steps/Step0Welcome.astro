@@ -1,0 +1,43 @@
+---
+---
+<section data-step="0" class="step-panel min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center px-4 py-12 text-center">
+  <!-- Hero logo -->
+  <div class="mb-8 w-full max-w-md">
+    <img
+      src="/logos/FSINF_light_bg_long_transparent.svg"
+      alt="Fachschaft Informatik"
+      class="w-full dark:hidden"
+    />
+    <img
+      src="/logos/FSINF_dark_bg_long_transparent.svg"
+      alt="Fachschaft Informatik"
+      class="w-full hidden dark:block"
+    />
+  </div>
+
+  <h1 class="text-4xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-4">
+    Willkommen bei der <span class="text-fsinf-navy dark:text-fsinf-cyan">Fachschaft Informatik!</span>
+  </h1>
+
+  <p class="text-lg text-fsinf-dark/70 dark:text-fsinf-cream/70 max-w-xl mb-8 leading-relaxed">
+    Wir freuen uns, dass du der Fachschaft Informatik beitreten möchtest. Hier findest du alles, was du brauchst – und in weniger als 5 Minuten bist du offiziell ein Teil von uns.
+  </p>
+
+  <div class="grid sm:grid-cols-3 gap-4 max-w-2xl w-full mb-8">
+    {[
+      { icon: '🏛️', title: 'Wer wir sind', desc: 'Deine studentische Interessenvertretung an der NAK' },
+      { icon: '🛠️', title: 'WhatsApp, Discord & GitHub', desc: 'Unsere Kommunikations- und Kollaborationskanäle' },
+      { icon: '✅', title: 'Erste Schritte', desc: 'Deine persönliche Onboarding-Checkliste' },
+    ].map(item => (
+      <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-4 text-left">
+        <div class="text-2xl mb-2">{item.icon}</div>
+        <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">{item.title}</h3>
+        <p class="text-sm text-fsinf-dark/60 dark:text-fsinf-cream/60">{item.desc}</p>
+      </div>
+    ))}
+  </div>
+
+  <p class="text-sm text-fsinf-dark/50 dark:text-fsinf-cream/50">
+    Klicke auf <strong>Weiter</strong> oder nutze die Pfeiltasten zum Navigieren
+  </p>
+</section>

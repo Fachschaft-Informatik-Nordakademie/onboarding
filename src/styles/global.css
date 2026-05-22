@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-fsinf-dark: #111c32;
+  --color-fsinf-navy: #003a79;
+  --color-fsinf-cyan: #3cd2ff;
+  --color-fsinf-cream: #e6e1dc;
+
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Smooth theme transition */
+*, *::before, *::after {
+  transition-property: color, background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-fsinf-navy);
+  border-radius: 3px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-fsinf-cyan);
+}

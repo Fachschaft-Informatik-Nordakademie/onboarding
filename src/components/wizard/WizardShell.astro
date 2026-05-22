@@ -1,0 +1,51 @@
+---
+import StepIndicator from './StepIndicator.astro';
+import NavButtons from './NavButtons.astro';
+import ThemeToggle from '../ui/ThemeToggle.astro';
+
+const STEP_TITLES = [
+  'Willkommen',
+  'Die Fachschaft',
+  'WhatsApp',
+  'Discord',
+  'Instagram',
+  'Dein Profil',
+  'Ansprechpartner',
+  'Fertig!',
+];
+---
+<div class="min-h-screen flex flex-col bg-fsinf-cream/30 dark:bg-fsinf-dark">
+  <!-- Test mode banner (hidden by default, shown via JS when ?mode=test) -->
+  <div id="test-mode-banner" class="hidden sticky top-0 z-[60] flex items-center justify-center gap-2 px-4 py-1.5 bg-amber-400 text-amber-900 text-sm font-semibold">
+    <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+    TESTMODUS – Pflichtchecks sind deaktiviert. Nicht für echtes Onboarding nutzen.
+  </div>
+
+  <!-- Top bar -->
+  <header class="sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white/80 dark:bg-fsinf-dark/80 backdrop-blur border-b border-fsinf-navy/10 dark:border-fsinf-cyan/10">
+    <!-- Logo: short on mobile, long on desktop -->
+    <div class="flex items-center">
+      <img src="/logos/FSINF_light_short.svg" alt="FSINF" class="h-8 dark:hidden sm:hidden" />
+      <img src="/logos/FSINF_dark_short.svg"  alt="FSINF" class="h-8 hidden dark:block sm:dark:hidden" />
+      <img src="/logos/FSINF_light_long.svg"  alt="Fachschaft Informatik" class="h-8 hidden dark:hidden sm:block" />
+      <img src="/logos/FSINF_dark_long.svg"   alt="Fachschaft Informatik" class="h-8 hidden sm:dark:block" />
+    </div>
+
+    <div class="flex items-center gap-3">
+      <StepIndicator totalSteps={8} stepTitles={STEP_TITLES} />
+      <ThemeToggle />
+    </div>
+  </header>
+
+  <!-- Step content -->
+  <main class="flex-1 overflow-hidden" id="wizard-main">
+    <div id="wizard-steps" class="relative">
+      <slot />
+    </div>
+  </main>
+
+  <!-- Bottom nav -->
+  <footer class="sticky bottom-0 bg-white/80 dark:bg-fsinf-dark/80 backdrop-blur border-t border-fsinf-navy/10 dark:border-fsinf-cyan/10">
+    <NavButtons />
+  </footer>
+</div>

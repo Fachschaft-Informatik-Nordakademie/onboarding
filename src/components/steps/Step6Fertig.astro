@@ -1,0 +1,56 @@
+---
+---
+<section data-step="6" class="step-panel hidden min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center px-4 py-12 text-center">
+  <div class="mb-8 w-full max-w-md">
+    <img
+      src="/logos/FSINF_light_bg_long_transparent.svg"
+      alt="Fachschaft Informatik"
+      class="w-full dark:hidden opacity-80"
+    />
+    <img
+      src="/logos/FSINF_dark_bg_long_transparent.svg"
+      alt="Fachschaft Informatik"
+      class="w-full hidden dark:block opacity-80"
+    />
+  </div>
+
+  <div class="text-5xl mb-4">🎉</div>
+  <h2 class="text-4xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-4">
+    Willkommen im Team!
+  </h2>
+  <p class="text-lg text-fsinf-dark/70 dark:text-fsinf-cream/70 max-w-xl mb-8 leading-relaxed">
+    Du hast das Onboarding abgeschlossen. Wir freuen uns auf die Zusammenarbeit mit dir in der Fachschaft Informatik!
+  </p>
+
+  <!-- Summary links -->
+  <div class="grid sm:grid-cols-3 gap-4 max-w-2xl w-full mb-8">
+    {[
+      { icon: '📱', label: 'WhatsApp', href: 'https://chat.whatsapp.com/DNJmgUJeM7JLJeywDufKbW' },
+      { icon: '🎮', label: 'Discord', href: 'https://discord.gg/m3ZV6pvtkF' },
+      { icon: '📋', label: 'Project Board', href: 'https://github.com/orgs/Fachschaft-Informatik-Nordakademie/projects/4' },
+    ].map(({ icon, label, href }) => (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-4 flex items-center gap-3 hover:border-fsinf-navy/50 dark:hover:border-fsinf-cyan/50 transition-colors"
+      >
+        <span class="text-2xl">{icon}</span>
+        <span class="font-medium text-fsinf-dark dark:text-fsinf-cream">{label}</span>
+      </a>
+    ))}
+  </div>
+
+  <!-- Back to checklist -->
+  <button
+    id="back-to-checklist"
+    type="button"
+    data-goto="3"
+    class="inline-flex items-center gap-2 px-6 py-3 border-2 border-fsinf-navy dark:border-fsinf-cyan text-fsinf-navy dark:text-fsinf-cyan font-medium rounded-lg hover:bg-fsinf-navy/10 dark:hover:bg-fsinf-cyan/10 transition-colors"
+  >
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+    </svg>
+    Zur Checkliste
+  </button>
+</section>

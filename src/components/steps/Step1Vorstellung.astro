@@ -1,0 +1,85 @@
+---
+---
+<section data-step="1" class="step-panel hidden min-h-[calc(100vh-8rem)] px-4 py-12 max-w-3xl mx-auto">
+  <h2 class="text-3xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-2">
+    Die <span class="text-fsinf-navy dark:text-fsinf-cyan">Fachschaft Informatik</span>
+  </h2>
+  <p class="text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-8">Wer wir sind und was wir machen</p>
+
+  <div class="space-y-6">
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-6">
+      <h3 class="flex items-center gap-2 font-semibold text-fsinf-dark dark:text-fsinf-cream text-lg mb-3">
+        <span class="text-2xl">🎓</span> Was ist die Fachschaft?
+      </h3>
+      <p class="text-fsinf-dark/70 dark:text-fsinf-cream/70 leading-relaxed mb-4">
+        Die Fachschaft Informatik (FSINF) ist die studentische Interessenvertretung aller Informatik-Studierenden an der NAK – offen für alle, die mitmachen wollen.
+      </p>
+      <p class="text-fsinf-dark/70 dark:text-fsinf-cream/70 leading-relaxed mb-4">
+        Wenn irgendwo Bedarf an Kommunikation oder Hilfe besteht, sind wir der erste Ansprechpartner. Wir leiten Anliegen an den <strong class="text-fsinf-dark dark:text-fsinf-cream">Studiengangsverbesserungsprozess</strong>, die <strong class="text-fsinf-dark dark:text-fsinf-cream">Hochschulleitung</strong> und <strong class="text-fsinf-dark dark:text-fsinf-cream">Dozenten</strong> weiter – und setzen uns aktiv für euch ein.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {[
+          { icon: '📢', text: 'Sprachrohr gegenüber Hochschulleitung & Dozenten' },
+          { icon: '🔄', text: 'Aktive Beteiligung am Studiengangsverbesserungsprozess' },
+          { icon: '🎉', text: 'Organisation von Events & Aktionen' },
+          { icon: '🤝', text: 'Anlaufstelle für alle Studierenden' },
+        ].map(({ icon, text }) => (
+          <div class="flex items-start gap-2 text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70">
+            <span class="text-base mt-0.5 flex-shrink-0">{icon}</span>
+            <span>{text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-6">
+      <h3 class="flex items-center gap-2 font-semibold text-fsinf-dark dark:text-fsinf-cream text-lg mb-3">
+        <span class="text-2xl">📅</span> Monatsmeetings
+      </h3>
+      <p class="text-fsinf-dark/70 dark:text-fsinf-cream/70 leading-relaxed mb-3">
+        Einmal im Monat treffen wir uns, um zu besprechen was aktuell ansteht – offen für alle. Was gerade auf der Agenda steht, siehst du auf unserem GitHub Project Board.
+      </p>
+      <a
+        href="https://github.com/orgs/Fachschaft-Informatik-Nordakademie/projects/4"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-fsinf-navy dark:bg-fsinf-cyan text-white dark:text-fsinf-dark font-medium text-sm rounded-lg hover:opacity-90 transition-opacity"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        Project Board öffnen
+      </a>
+    </div>
+
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-6">
+      <h3 class="flex items-center gap-2 font-semibold text-fsinf-dark dark:text-fsinf-cream text-lg mb-3">
+        <span class="text-2xl">🔧</span> Unsere Arbeitsgruppen
+      </h3>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {[
+          { ag: 'LAN-Party', icon: '🎮', href: 'https://nak-lan.de' },
+          { ag: 'Marketing', icon: '📣', href: 'https://www.instagram.com/nak.inf' },
+          { ag: 'Brettspiele', icon: '♟️', href: null },
+          { ag: 'Minecraft Server', icon: '⛏️', href: null },
+          { ag: 'Sponsoring Relations', icon: '🤝', href: null },
+          { ag: 'Discord', icon: '💬', href: null },
+          { ag: 'Reddit', icon: '🤖', href: null },
+          { ag: 'Merch', icon: '👕', href: 'https://shop.nak-inf.de', comingSoon: true },
+        ].map(({ ag, icon, href, comingSoon }: { ag: string; icon: string; href: string | null; comingSoon?: boolean }) => (
+          <div class="bg-fsinf-cream/50 dark:bg-fsinf-dark/40 rounded-lg p-3 flex items-center gap-2">
+            <span>{icon}</span>
+            {href && !comingSoon
+              ? <a href={href} target="_blank" rel="noopener noreferrer" data-auto-check={ag === 'Marketing' ? 'instagram' : undefined} class="font-medium text-fsinf-navy dark:text-fsinf-cyan hover:underline">{ag}</a>
+              : <span class="font-medium text-fsinf-navy dark:text-fsinf-cyan">{ag}</span>
+            }
+            {comingSoon && <span class="text-xs text-fsinf-dark/40 dark:text-fsinf-cream/40">(demnächst)</span>}
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-fsinf-dark/60 dark:text-fsinf-cream/60 mt-3">
+        Den AGs beitreten: einfach dem jeweiligen WhatsApp-Chat joinen – oder in der Hauptgruppe fragen, wenn du eine neue AG gründen möchtest.
+      </p>
+    </div>
+  </div>
+</section>

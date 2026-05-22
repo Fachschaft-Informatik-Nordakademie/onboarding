@@ -1,0 +1,111 @@
+---
+---
+<section data-step="email-verify" class="step-panel hidden min-h-[calc(100vh-8rem)] px-4 py-12 max-w-2xl mx-auto flex flex-col items-center justify-center text-center">
+  <div class="text-6xl mb-6">✉️</div>
+  <h2 class="text-3xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-3">
+    E-Mail <span class="text-fsinf-navy dark:text-fsinf-cyan">bestätigen</span>
+  </h2>
+  <p class="text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-8 max-w-md leading-relaxed">
+    Damit wir wissen, dass du wirklich zur NAK gehörst, senden wir dir einen kurzen Bestätigungscode an deine
+    <strong class="text-fsinf-dark dark:text-fsinf-cream">nordakademie.de-Adresse</strong>.
+  </p>
+
+  <div class="w-full max-w-sm space-y-4">
+
+    <!-- Email input + send button -->
+    <div id="email-send-section" class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-2xl p-6 text-left space-y-4">
+      <div>
+        <label for="verify-email-input" class="block font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">
+          NAK-E-Mail-Adresse
+        </label>
+        <p class="text-sm text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-2">z.B. 20066@nordakademie.de</p>
+        <input
+          id="verify-email-input"
+          type="email"
+          placeholder="matrikelnummer@nordakademie.de"
+          autocomplete="email"
+          class="w-full px-4 py-2.5 rounded-lg border-2 border-fsinf-navy/30 dark:border-fsinf-cyan/30 bg-white dark:bg-fsinf-dark text-fsinf-dark dark:text-fsinf-cream placeholder-fsinf-dark/40 dark:placeholder-fsinf-cream/40 focus:outline-none focus:border-fsinf-navy dark:focus:border-fsinf-cyan transition-colors"
+        />
+      </div>
+      <button
+        id="send-code-btn"
+        type="button"
+        class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-fsinf-navy dark:bg-fsinf-cyan text-white dark:text-fsinf-dark font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <span id="send-code-btn-text">Code senden</span>
+      </button>
+    </div>
+
+    <!-- Code input (shown after code is sent) -->
+    <div id="email-verify-section" class="hidden bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-2xl p-6 text-left space-y-4">
+      <p class="text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70">
+        Gib den 6-stelligen Code ein, den wir an <strong id="verify-email-display" class="text-fsinf-navy dark:text-fsinf-cyan"></strong> gesendet haben.
+      </p>
+      <div>
+        <label for="verify-code-input" class="block font-semibold text-fsinf-dark dark:text-fsinf-cream mb-1">
+          Bestätigungscode
+        </label>
+        <input
+          id="verify-code-input"
+          type="text"
+          inputmode="numeric"
+          maxlength="6"
+          placeholder="123456"
+          autocomplete="one-time-code"
+          class="w-full px-4 py-2.5 rounded-lg border-2 border-fsinf-navy/30 dark:border-fsinf-cyan/30 bg-white dark:bg-fsinf-dark text-fsinf-dark dark:text-fsinf-cream placeholder-fsinf-dark/40 dark:placeholder-fsinf-cream/40 focus:outline-none focus:border-fsinf-navy dark:focus:border-fsinf-cyan transition-colors tracking-widest text-center font-mono text-xl"
+        />
+      </div>
+      <button
+        id="verify-code-btn"
+        type="button"
+        class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-fsinf-navy dark:bg-fsinf-cyan text-white dark:text-fsinf-dark font-semibold rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span id="verify-code-btn-text">Bestätigen</span>
+      </button>
+      <button
+        id="resend-code-btn"
+        type="button"
+        class="w-full text-sm text-fsinf-dark/50 dark:text-fsinf-cream/50 hover:text-fsinf-navy dark:hover:text-fsinf-cyan transition-colors"
+      >
+        Neuen Code anfordern
+      </button>
+    </div>
+
+    <!-- Feedback -->
+    <div id="email-verify-info" class="hidden flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/50 rounded-xl text-left">
+      <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <p id="email-verify-info-text" class="text-sm text-blue-800 dark:text-blue-300"></p>
+    </div>
+
+    <div id="email-verify-error" class="hidden flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/50 rounded-xl text-left">
+      <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <p id="email-verify-error-text" class="text-sm text-red-800 dark:text-red-300"></p>
+    </div>
+
+    <!-- Success -->
+    <div id="email-verify-success" class="hidden flex items-start gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/50 rounded-xl text-left">
+      <svg class="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="font-medium text-green-800 dark:text-green-300">E-Mail bestätigt!</p>
+        <p id="email-verify-success-email" class="text-sm text-green-700 dark:text-green-400 mt-0.5"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="text-sm text-fsinf-dark/40 dark:text-fsinf-cream/40 mt-6">
+    Nach der Bestätigung wird der „Weiter"-Button aktiv ↓
+  </p>
+</section>

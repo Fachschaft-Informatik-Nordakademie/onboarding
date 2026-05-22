@@ -1,0 +1,95 @@
+---
+const whatsappInvite = import.meta.env.WHATSAPP_INVITE || '#';
+const discordInvite = import.meta.env.DISCORD_INVITE || '#';
+---
+<section data-step="2" class="step-panel hidden min-h-[calc(100vh-8rem)] px-4 py-12 max-w-3xl mx-auto">
+  <h2 class="text-3xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-2">
+    Tools &amp; <span class="text-fsinf-navy dark:text-fsinf-cyan">Community</span>
+  </h2>
+  <p class="text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-8">Wo wir kommunizieren und zusammenarbeiten</p>
+
+  <div class="space-y-4">
+
+    <!-- 1. WhatsApp -->
+    <div class="bg-[#25d366]/10 border border-[#25d366]/30 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl">📱</span>
+          <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream">WhatsApp</h3>
+          <span class="text-xs px-2 py-0.5 bg-[#25d366]/20 text-[#25d366] rounded-full font-medium">Erster Schritt</span>
+        </div>
+        <p class="text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70">
+          Hauptkommunikationskanal der Fachschaft – Ankündigungen, AG-Chats und alles Wichtige.
+        </p>
+      </div>
+      <a href={whatsappInvite} target="_blank" rel="noopener noreferrer"
+        data-auto-check="whatsapp"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-[#25d366] text-white font-medium text-sm rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+        Beitreten
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+    </div>
+
+    <!-- 2. Discord -->
+    <div class="bg-[#5865f2]/10 border border-[#5865f2]/30 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl">🎮</span>
+          <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream">Discord</h3>
+        </div>
+        <p class="text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70">
+          Für Gaming, AGs und informellen Austausch. Bestimmte Rollen (z.B. LAN-Orga) werden hier vergeben.
+        </p>
+      </div>
+      <a href={discordInvite} target="_blank" rel="noopener noreferrer"
+        data-auto-check="discord"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-[#5865f2] text-white font-medium text-sm rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+        Beitreten
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+    </div>
+
+    <!-- 3. GitHub -->
+    <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl">🐙</span>
+          <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream">GitHub</h3>
+        </div>
+        <p class="text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70">
+          Unsere GitHub-Organisation für Code und Projekte. Zugang beantragst du am Ende dieses Wizards.
+        </p>
+      </div>
+      <a href="https://github.com/Fachschaft-Informatik-Nordakademie" target="_blank" rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-fsinf-dark dark:bg-fsinf-cream text-white dark:text-fsinf-dark font-medium text-sm rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+        Ansehen
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+    </div>
+
+    <!-- 4. Project Board (nach GitHub-Zugang) -->
+    <div class="bg-fsinf-navy/5 dark:bg-fsinf-cyan/5 border border-fsinf-navy/15 dark:border-fsinf-cyan/15 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="text-2xl">📋</span>
+          <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream">Project Board</h3>
+          <span class="text-xs px-2 py-0.5 bg-fsinf-navy/10 dark:bg-fsinf-cyan/10 text-fsinf-navy dark:text-fsinf-cyan rounded-full font-medium">Nach GitHub-Zugang</span>
+        </div>
+        <p class="text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70">
+          Hier siehst du, was aktuell bei der Fachschaft ansteht – Agenda für die Monatsmeetings und laufende Aufgaben.
+        </p>
+      </div>
+      <a href="https://github.com/orgs/Fachschaft-Informatik-Nordakademie/projects/4" target="_blank" rel="noopener noreferrer"
+        data-auto-check="projectboard"
+        class="inline-flex items-center gap-2 px-4 py-2 border-2 border-fsinf-navy/30 dark:border-fsinf-cyan/30 text-fsinf-navy dark:text-fsinf-cyan font-medium text-sm rounded-lg hover:bg-fsinf-navy/5 dark:hover:bg-fsinf-cyan/5 transition-colors whitespace-nowrap">
+        Öffnen
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+  <p class="mt-5 text-center text-sm text-fsinf-dark/50 dark:text-fsinf-cream/50">
+    Tritt erst WhatsApp und Discord bei, dann geht's weiter ↓
+  </p>
+</section>

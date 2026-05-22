@@ -1,0 +1,30 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  description?: string;
+}
+
+const { id, label, description } = Astro.props;
+---
+<label
+  class="checklist-item flex items-start gap-3 p-4 rounded-xl border border-fsinf-navy/20 dark:border-fsinf-cyan/20 cursor-pointer hover:bg-fsinf-navy/5 dark:hover:bg-fsinf-cyan/5 transition-colors group"
+  data-id={id}
+>
+  <div class="relative flex-shrink-0 mt-0.5">
+    <input
+      type="checkbox"
+      class="sr-only peer"
+      data-checklist-id={id}
+    />
+    <div class="w-5 h-5 border-2 border-fsinf-navy/40 dark:border-fsinf-cyan/40 rounded peer-checked:bg-fsinf-navy dark:peer-checked:bg-fsinf-cyan peer-checked:border-fsinf-navy dark:peer-checked:border-fsinf-cyan transition-colors flex items-center justify-center">
+      <svg class="w-3 h-3 text-white dark:text-fsinf-dark opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+  </div>
+  <div class="flex-1">
+    <span class="font-medium text-fsinf-dark dark:text-fsinf-cream group-[.checked]:line-through group-[.checked]:opacity-60">{label}</span>
+    {description && <p class="text-sm text-fsinf-dark/60 dark:text-fsinf-cream/60 mt-0.5">{description}</p>}
+  </div>
+</label>

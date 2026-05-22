@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import WizardShell from '../components/wizard/WizardShell.astro';
+import Step0Welcome from '../components/steps/Step0Welcome.astro';
+import Step1Vorstellung from '../components/steps/Step1Vorstellung.astro';
+import StepEmailVerify from '../components/steps/StepEmailVerify.astro';
+import Step2WhatsApp from '../components/steps/Step2WhatsApp.astro';
+import Step3Discord from '../components/steps/Step3Discord.astro';
+import Step4Instagram from '../components/steps/Step4Instagram.astro';
+import Step5Profil from '../components/steps/Step5Profil.astro';
+import Step6Ansprechpartner from '../components/steps/Step6Ansprechpartner.astro';
+import Step7Fertig from '../components/steps/Step7Fertig.astro';
+---
+<Base>
+  <WizardShell>
+    <Step0Welcome />
+    <Step1Vorstellung />
+    <StepEmailVerify />
+    <Step2WhatsApp />
+    <Step3Discord />
+    <Step4Instagram />
+    <Step5Profil />
+    <Step6Ansprechpartner />
+    <Step7Fertig />
+  </WizardShell>
+  <script src="../scripts/wizard.ts"></script>
+</Base>

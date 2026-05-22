@@ -1,0 +1,54 @@
+---
+const contacts = [
+  {
+    name: 'Tom Stieh',
+    role: '1. Vorstand',
+    ag: 'WINF · I23',
+    email: '20066@nordakademie.de',
+    avatar: 'TS',
+    color: 'bg-fsinf-navy',
+  },
+  {
+    name: 'Eric Nottorf',
+    role: '2. Vorstand',
+    ag: 'WINF · I23',
+    email: '20190@nordakademie.de',
+    avatar: 'EN',
+    color: 'bg-[#7c3aed]',
+  },
+];
+---
+<section data-step="6" class="step-panel hidden min-h-[calc(100vh-8rem)] px-4 py-12 max-w-3xl mx-auto">
+  <h2 class="text-3xl font-bold text-fsinf-dark dark:text-fsinf-cream mb-2">
+    Deine <span class="text-fsinf-navy dark:text-fsinf-cyan">Ansprechpartner</span>
+  </h2>
+  <p class="text-fsinf-dark/60 dark:text-fsinf-cream/60 mb-8">Bei Fragen sind wir für euch da</p>
+
+  <div class="grid sm:grid-cols-2 gap-4 mb-8">
+    {contacts.map(({ name, role, ag, email, avatar, color }) => (
+      <div class="bg-white dark:bg-fsinf-navy/20 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5 flex gap-4">
+        <div class={`${color} w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+          {avatar}
+        </div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream">{name}</h3>
+          <p class="text-sm text-fsinf-navy dark:text-fsinf-cyan">{role}</p>
+          <p class="text-xs text-fsinf-dark/50 dark:text-fsinf-cream/50 mb-2">{ag}</p>
+          <a href={`mailto:${email}`} class="text-xs text-fsinf-dark/60 dark:text-fsinf-cream/60 hover:text-fsinf-navy dark:hover:text-fsinf-cyan transition-colors truncate">
+            ✉️ {email}
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="bg-fsinf-navy/5 dark:bg-fsinf-cyan/5 border border-fsinf-navy/20 dark:border-fsinf-cyan/20 rounded-xl p-5">
+    <h3 class="font-semibold text-fsinf-dark dark:text-fsinf-cream mb-2">Allgemeiner Kontakt</h3>
+    <p class="text-sm text-fsinf-dark/70 dark:text-fsinf-cream/70 mb-3">
+      Du weißt nicht, an wen du dich wenden sollst? Schreib uns einfach an die allgemeine Fachschafts-Adresse oder komm ins Plenum!
+    </p>
+    <a href="mailto:fsinf@nak-inf.de" class="text-fsinf-navy dark:text-fsinf-cyan font-medium text-sm hover:underline">
+      ✉️ fsinf@nak-inf.de
+    </a>
+  </div>
+</section>

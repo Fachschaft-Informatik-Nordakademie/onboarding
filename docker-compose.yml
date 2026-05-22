@@ -1,0 +1,13 @@
+services:
+  onboarding:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "4323:4321"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
