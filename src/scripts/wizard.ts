@@ -597,6 +597,250 @@ function initNameValidation(): void {
   });
 }
 
+// ─── Test Mode ────────────────────────────────────────────────────────────────
+
+const TEST_BACKDOOR_SKEY = 'fsinf-test-backdoor';
+
+function getTestBackdoor(): string {
+  return (document.getElementById('test-backdoor-input') as HTMLInputElement | null)?.value.trim() ?? '';
+}
+
+function initTestMode(): void {
+  document.getElementById('test-mode-banner')?.classList.remove('hidden');
+
+  const backdoorInput = document.getElementById('test-backdoor-input') as HTMLInputElement | null;
+  if (backdoorInput) {
+    backdoorInput.value = sessionStorage.getItem(TEST_BACKDOOR_SKEY) ?? '';
+    backdoorInput.addEventListener('input', () => {
+      sessionStorage.setItem(TEST_BACKDOOR_SKEY, backdoorInput.value);
+    });
+  }
+
+  const toggle = document.getElementById('test-panel-toggle');
+  const panel = document.getElementById('test-panel');
+  const chevron = document.getElementById('test-panel-chevron');
+  let panelOpen = false;
+  toggle?.addEventListener('click', () => {
+    panelOpen = !panelOpen;
+    panel?.classList.toggle('hidden', !panelOpen);
+    chevron?.classList.toggle('rotate-180', panelOpen);
+  });
+
+  document.getElementById('test-run-checks-btn')?.addEventListener('click', runHealthChecks);
+
+  document.getElementById('test-reset-progress-btn')?.addEventListener('click', () => {
+    [CHECKLIST_KEY, INTRO_DONE_KEY, MAX_STEP_KEY, VERIFIED_EMAIL_KEY, INVITE_LINKS_KEY]
+      .forEach(k => localStorage.removeItem(k));
+    window.location.reload();
+  });
+
+  injectTestSkipButtons();
+}
+
+async function runHealthChecks(): Promise<void> {
+  const resultsEl = document.getElementById('test-check-results');
+  const listEl    = document.getElementById('test-check-results-list');
+  if (!listEl || !resultsEl) return;
+
+  resultsEl.classList.remove('hidden');
+  listEl.innerHTML = '';
+
+  const backdoor = getTestBackdoor();
+
+  type CheckResult = { ok: boolean; detail?: string };
+  const checks: Array<{ label: string; run: () => Promise<CheckResult> }> = [
+    {
+      label: 'Hauptseite erreichbar',
+      run: async () => {
+        const t0  = Date.now();
+        const res = await fetch('/', { redirect: 'follow' });
+        return { ok: res.ok, detail: `HTTP ${res.status} (${Date.now() - t0}ms)` };
+      },
+    },
+    {
+      label: 'SMTP-Verbindung (Mailserver)',
+      run: async () => {
+        if (!backdoor) return { ok: false, detail: 'Kein Backdoor-Key eingetragen' };
+        const res = await fetch(`/api/test-smtp?backdoor=${encodeURIComponent(backdoor)}`);
+        const d   = await res.json().catch(() => ({})) as { ok?: boolean; user?: string; host?: string; error?: string };
+        if (d.ok) return { ok: true, detail: `${d.user} → ${d.host}` };
+        return { ok: false, detail: d.error ?? `HTTP ${res.status}` };
+      },
+    },
+    {
+      label: 'GitHub OAuth Redirect',
+      run: async () => {
+        const res = await fetch('/api/github-auth', { redirect: 'manual' });
+        const ok  = res.status === 302 || res.status === 301;
+        return { ok, detail: `HTTP ${res.status}${ok ? ' ✓' : ' — kein Redirect erwartet'}` };
+      },
+    },
+    {
+      label: 'E-Mail-Verify API (Validierung)',
+      run: async () => {
+        const res = await fetch('/api/verify-email', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email: 'kein-nak-email@gmail.com' }),
+        });
+        const ok = res.status === 422 || res.status === 400;
+        return { ok, detail: `Erwartet 4xx, erhalten: ${res.status}` };
+      },
+    },
+    {
+      label: 'Invite API (Auth-Prüfung)',
+      run: async () => {
+        const res = await fetch('/api/invite', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ fullName: 'Test', zenturie: 'I25', email: 'test@nordakademie.de' }),
+        });
+        return { ok: res.status === 403, detail: `Erwartet 403, erhalten: ${res.status}` };
+      },
+    },
+    {
+      label: 'Test-Setup Backdoor',
+      run: async () => {
+        if (!backdoor) return { ok: false, detail: 'Kein Backdoor-Key eingetragen' };
+        const res = await fetch('/api/test-setup', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ backdoor, email: 'health-check@nordakademie.de', ghUser: 'health-check' }),
+        });
+        return { ok: res.ok, detail: `HTTP ${res.status}` };
+      },
+    },
+    {
+      label: 'Antwortzeit < 1500ms',
+      run: async () => {
+        const t0 = Date.now();
+        await fetch('/api/github-me');
+        const ms = Date.now() - t0;
+        return { ok: ms < 1500, detail: `${ms}ms` };
+      },
+    },
+  ];
+
+  const SPINNER_SVG = `<svg class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2.5" stroke-dasharray="40" stroke-dashoffset="15" opacity="0.4"/><path d="M12 2a10 10 0 0110 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+  const CHECK_SVG   = `<svg class="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`;
+  const CROSS_SVG   = `<svg class="w-4 h-4 text-red-500"   fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>`;
+
+  for (const check of checks) {
+    const row = document.createElement('div');
+    row.className = 'flex items-center gap-2 text-xs px-2.5 py-1.5 rounded-lg bg-amber-50/80';
+    row.innerHTML = `<span class="w-4 h-4 flex items-center justify-center shrink-0 text-amber-500">${SPINNER_SVG}</span><span class="font-medium text-amber-900 flex-1">${check.label}</span><span class="text-amber-700/60 tabular-nums shrink-0"></span>`;
+    listEl.appendChild(row);
+
+    try {
+      const result  = await check.run();
+      const iconEl  = row.children[0] as HTMLElement;
+      const detailEl = row.children[2] as HTMLElement;
+      iconEl.innerHTML   = result.ok ? CHECK_SVG : CROSS_SVG;
+      detailEl.textContent = result.detail ?? '';
+      row.className = `flex items-center gap-2 text-xs px-2.5 py-1.5 rounded-lg border ${result.ok ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`;
+    } catch (err) {
+      const iconEl   = row.children[0] as HTMLElement;
+      const detailEl = row.children[2] as HTMLElement;
+      iconEl.innerHTML     = CROSS_SVG;
+      detailEl.textContent = String(err);
+      row.className = 'flex items-center gap-2 text-xs px-2.5 py-1.5 rounded-lg border bg-red-50 border-red-200';
+    }
+  }
+}
+
+function injectTestSkipButtons(): void {
+  const emailStep      = document.querySelector<HTMLElement>('[data-step="email-verify"]');
+  const emailContainer = emailStep?.querySelector<HTMLElement>('.w-full.max-w-sm');
+  if (emailContainer) {
+    const btn = document.createElement('button');
+    btn.type      = 'button';
+    btn.id        = 'test-skip-email-btn';
+    btn.className = 'w-full mt-2 inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium text-amber-800 bg-amber-100 border border-amber-300 rounded-xl hover:bg-amber-200 transition-colors';
+    btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>E-Mail-Verifizierung überspringen (Testmodus)`;
+    btn.addEventListener('click', skipEmailVerification);
+    emailContainer.appendChild(btn);
+  }
+
+  const githubConnect = document.getElementById('github-oauth-connect');
+  if (githubConnect) {
+    const wrap = document.createElement('div');
+    wrap.id        = 'test-skip-github-wrap';
+    wrap.className = 'mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl space-y-2';
+    wrap.innerHTML = `
+      <p class="text-xs font-semibold text-amber-800">⚡ Testmodus: GitHub OAuth überspringen</p>
+      <div class="flex gap-2">
+        <input id="test-skip-github-input" type="text" placeholder="GitHub-Nutzername (z.B. octocat)"
+               class="flex-1 px-2.5 py-1.5 text-sm rounded-lg border border-amber-300 bg-white focus:outline-none focus:border-amber-500" />
+        <button id="test-skip-github-btn" type="button"
+                class="px-3 py-1.5 text-xs font-semibold text-amber-800 bg-amber-200 border border-amber-300 rounded-lg hover:bg-amber-300 transition-colors whitespace-nowrap">
+          Überspringen
+        </button>
+      </div>`;
+    githubConnect.appendChild(wrap);
+    document.getElementById('test-skip-github-btn')?.addEventListener('click', skipGitHubOAuth);
+  }
+}
+
+async function skipEmailVerification(): Promise<void> {
+  const emailInput = document.getElementById('verify-email-input') as HTMLInputElement | null;
+  const email      = emailInput?.value.trim() || 'test@nordakademie.de';
+  const backdoor   = getTestBackdoor();
+
+  if (backdoor) {
+    try {
+      await fetch('/api/test-setup', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ backdoor, email, ghUser: 'skip-placeholder' }),
+      });
+    } catch { /* best-effort */ }
+  }
+
+  localStorage.setItem(VERIFIED_EMAIL_KEY, email);
+  localStorage.setItem(INVITE_LINKS_KEY, JSON.stringify({}));
+  checkItem('email-verified');
+
+  if (emailInput) { emailInput.value = email; emailInput.readOnly = true; }
+  document.getElementById('email-send-section')?.classList.add('opacity-50');
+  document.getElementById('email-verify-section')?.classList.add('hidden');
+  document.getElementById('email-verify-info')?.classList.add('hidden');
+  document.getElementById('email-verify-error')?.classList.add('hidden');
+  const successEmail = document.getElementById('email-verify-success-email');
+  if (successEmail) successEmail.textContent = email;
+  document.getElementById('email-verify-success')?.classList.remove('hidden');
+  document.getElementById('test-skip-email-btn')?.remove();
+}
+
+async function skipGitHubOAuth(): Promise<void> {
+  const ghInput = document.getElementById('test-skip-github-input') as HTMLInputElement | null;
+  const ghUser  = ghInput?.value.trim() ?? '';
+  if (!ghUser) { ghInput?.focus(); return; }
+
+  const email    = localStorage.getItem(VERIFIED_EMAIL_KEY) ?? 'test@nordakademie.de';
+  const backdoor = getTestBackdoor();
+
+  if (backdoor) {
+    try {
+      await fetch('/api/test-setup', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ backdoor, email, ghUser }),
+      });
+    } catch { /* best-effort */ }
+  }
+
+  document.getElementById('github-oauth-connect')?.classList.add('hidden');
+  const connected = document.getElementById('github-oauth-connected');
+  connected?.classList.remove('hidden');
+  const usernameSpan = document.getElementById('github-oauth-username');
+  if (usernameSpan) usernameSpan.textContent = `@${ghUser}`;
+
+  const inviteBtn = document.getElementById('github-invite-btn') as HTMLButtonElement | null;
+  if (inviteBtn) inviteBtn.disabled = false;
+
+  document.getElementById('test-skip-github-wrap')?.remove();
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -609,10 +853,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGitHubInvite();
   initNameValidation();
 
-  if (TEST_MODE) {
-    // Show the warning banner
-    document.getElementById('test-mode-banner')?.classList.remove('hidden');
-  }
+  if (TEST_MODE) initTestMode();
 
   const savedMax = parseInt(localStorage.getItem(MAX_STEP_KEY) ?? '0', 10);
   maxReachedStep = Math.max(0, savedMax);

@@ -16,9 +16,65 @@ const STEP_TITLES = [
 ---
 <div class="min-h-screen flex flex-col bg-fsinf-cream/30 dark:bg-fsinf-dark">
   <!-- Test mode banner (hidden by default, shown via JS when ?mode=test) -->
-  <div id="test-mode-banner" class="hidden sticky top-0 z-[60] flex items-center justify-center gap-2 px-4 py-1.5 bg-amber-400 text-amber-900 text-sm font-semibold">
-    <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
-    TESTMODUS – Pflichtchecks sind deaktiviert. Nicht für echtes Onboarding nutzen.
+  <div id="test-mode-banner" class="hidden sticky top-0 z-[60]">
+    <!-- Always-visible warning bar -->
+    <div class="flex items-center justify-between px-4 py-1.5 bg-amber-400 text-amber-900">
+      <div class="flex items-center gap-2 text-sm font-semibold min-w-0">
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+        </svg>
+        <span class="truncate">TESTMODUS – Pflichtchecks deaktiviert. Nicht für echtes Onboarding nutzen.</span>
+      </div>
+      <button id="test-panel-toggle" type="button" class="ml-4 shrink-0 flex items-center gap-1 text-xs font-semibold text-amber-900/70 hover:text-amber-900 transition-colors">
+        Tools
+        <svg id="test-panel-chevron" class="w-3.5 h-3.5 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Expandable test panel -->
+    <div id="test-panel" class="hidden border-t border-amber-500/40 bg-amber-50/95 backdrop-blur">
+      <div class="max-w-5xl mx-auto px-4 py-3 space-y-3">
+
+        <!-- Backdoor + action buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="flex items-center gap-2 flex-1 min-w-[220px]">
+            <span class="text-xs font-semibold text-amber-800 shrink-0">🔑 Backdoor:</span>
+            <input
+              id="test-backdoor-input"
+              type="password"
+              autocomplete="off"
+              placeholder="TEST_BACKDOOR-Wert eintragen"
+              class="flex-1 px-2.5 py-1 text-xs rounded-lg border border-amber-300 bg-white/80 text-amber-950 placeholder-amber-400 focus:outline-none focus:border-amber-600 focus:ring-1 focus:ring-amber-300"
+            />
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button id="test-run-checks-btn" type="button"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-700 text-amber-50 text-xs font-semibold rounded-lg hover:bg-amber-800 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              Health Checks
+            </button>
+            <button id="test-reset-progress-btn" type="button"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white text-xs font-semibold rounded-lg hover:bg-red-700 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+              Progress zurücksetzen
+            </button>
+          </div>
+        </div>
+
+        <!-- Health check results -->
+        <div id="test-check-results" class="hidden">
+          <div class="text-xs font-semibold text-amber-800 mb-1.5">Ergebnisse:</div>
+          <div id="test-check-results-list" class="space-y-1 max-h-52 overflow-y-auto rounded-lg border border-amber-200 bg-white/60 p-2"></div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <!-- Top bar -->
