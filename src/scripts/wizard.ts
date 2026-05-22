@@ -749,19 +749,43 @@ async function runHealthChecks(): Promise<void> {
   }
 }
 
+function makeSkipBtn(label: string, onClick: () => void): HTMLButtonElement {
+  const btn = document.createElement('button');
+  btn.type      = 'button';
+  btn.className = 'inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium text-amber-800 bg-amber-100 border border-amber-300 rounded-xl hover:bg-amber-200 transition-colors';
+  btn.innerHTML = `<svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>${label}`;
+  btn.addEventListener('click', onClick);
+  return btn;
+}
+
+function injectSimpleSkip(stepSelector: string, checklistId: string, label: string): void {
+  const step = document.querySelector<HTMLElement>(stepSelector);
+  if (!step) return;
+  const btn = makeSkipBtn(label, () => {
+    checkItem(checklistId);
+    btn.remove();
+  });
+  btn.className += ' mt-6';
+  step.appendChild(btn);
+}
+
 function injectTestSkipButtons(): void {
+  // Email verification (needs server-side cookie)
   const emailStep      = document.querySelector<HTMLElement>('[data-step="email-verify"]');
   const emailContainer = emailStep?.querySelector<HTMLElement>('.w-full.max-w-sm');
   if (emailContainer) {
-    const btn = document.createElement('button');
-    btn.type      = 'button';
-    btn.id        = 'test-skip-email-btn';
-    btn.className = 'w-full mt-2 inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium text-amber-800 bg-amber-100 border border-amber-300 rounded-xl hover:bg-amber-200 transition-colors';
-    btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>E-Mail-Verifizierung überspringen (Testmodus)`;
-    btn.addEventListener('click', skipEmailVerification);
+    const btn = makeSkipBtn('E-Mail-Verifizierung überspringen', skipEmailVerification);
+    btn.id = 'test-skip-email-btn';
+    btn.classList.add('w-full', 'mt-2');
     emailContainer.appendChild(btn);
   }
 
+  // Simple checklist-only skips
+  injectSimpleSkip('[data-step="2"]', 'whatsapp',   'WhatsApp überspringen');
+  injectSimpleSkip('[data-step="3"]', 'discord',    'Discord überspringen');
+  injectSimpleSkip('[data-step="4"]', 'instagram',  'Instagram überspringen');
+
+  // GitHub OAuth (needs server-side cookie + username input)
   const githubConnect = document.getElementById('github-oauth-connect');
   if (githubConnect) {
     const wrap = document.createElement('div');
