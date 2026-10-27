@@ -3,9 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-# output: 'static' renders the invite links into the pages at build time
-ARG WHATSAPP_INVITE
-ARG DISCORD_INVITE
 RUN npm run build
 
 FROM node:22-alpine AS runtime
